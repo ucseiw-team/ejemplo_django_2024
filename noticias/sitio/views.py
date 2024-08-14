@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from sitio.models import Noticia
+from sitio.forms import FormNoticia, FormNoticiaMasCopado
 from datetime import datetime
 
 
@@ -14,4 +15,46 @@ def inicio(request):
 
     return render(request, 'inicio.html', {'lista_noticias': noticias})
 
+
+def ejemplo_forms(request):
+    if request.method == "POST":
+        print("DEBUG de form:")
+        print(request.POST["titulo"])
+        # guardar la noticia además
+
+        return redirect("/inicio/")
+
+    return render(request, "ejemplo_forms.html", {})
+
+
+def ejemplo_forms_django(request):
+    if request.method == "POST":
+        form = FormNoticia(request.POST)
+
+        if form.is_valid():
+            print("DEBUG de form:")
+            print(form.cleaned_data["titulo"])
+            # guardar la noticia además
+
+            return redirect("/inicio/")
+    else:
+        form = FormNoticia()
+
+    return render(request, "ejemplo_forms_django.html", {"form": form})
+
+
+def ejemplo_forms_django_mas_copado(request):
+    if request.method == "POST":
+        form = FormNoticiaMasCopado(request.POST)
+
+        if form.is_valid():
+            noticia = form.save(commit=False)
+            noticia.autor = "desconocido"
+            noticia.save()
+
+            return redirect("/inicio/")
+    else:
+        form = FormNoticiaMasCopado()
+
+    return render(request, "ejemplo_forms_django.html", {"form": form})
 

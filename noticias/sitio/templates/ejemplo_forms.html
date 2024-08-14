@@ -1,0 +1,18 @@
+<form method="post" action=".">
+    {% csrf_token %}
+    <p>
+        <label for="titulo">Titulo:</label>
+        <input name="titulo" type="text" />
+    </p>
+    <p>
+        <label for="descripcion">Descripción:</label>
+        <input name="descripcion" type="text" />
+    </p>
+    <p>
+        <label for="id_categoria">Id Categoría:</label>
+        <input name="id_categoria" type="number" />
+    </p>
+    <p>
+        <input type="submit" value="Guardar!" />
+    </p>
+</form>
