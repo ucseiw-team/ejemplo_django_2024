@@ -12,3 +12,6 @@ class FormNoticiaMasCopado(forms.ModelForm):
     class Meta:
          model = Noticia
          fields = ["titulo", "texto", "fecha", "archivada"]
+         widgets = {
+             'fecha': forms.DateInput(attrs={'type': 'date'})
+         }

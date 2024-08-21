@@ -1,8 +1,14 @@
-<form method="post" action=".">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <p>
-        <input type="submit" value="Guardar!" />
-    </p>
-</form>
+{% extends "base.html" %}
 
+{% block subtitulo %}Ejemplo forms{% endblock %}
+
+{% block contenido %}
+    <form method="post" action=".">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <p>
+            <input type="submit" value="Guardar!" name="guardar" />
+            <input type="submit" value="Guardar y seguir editando!" name="guardar_y_editar" />
+        </p>
+    </form>
+{% endblock %}

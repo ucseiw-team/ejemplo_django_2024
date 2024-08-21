@@ -32,8 +32,11 @@ def ejemplo_forms_django(request):
         form = FormNoticia(request.POST)
 
         if form.is_valid():
-            print("DEBUG de form:")
+            print("DEBUG titulo ingresado en el form:")
             print(form.cleaned_data["titulo"])
+            print("DEBUG POST crudo:", request.POST)
+            print("DEBUG presionó guardar?", "guardar" in request.POST)
+            print("DEBUG presionó guardar y editar?", "guardar_y_editar" in request.POST)
             # guardar la noticia además
 
             return redirect("/inicio/")
