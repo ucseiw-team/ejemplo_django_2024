@@ -15,8 +15,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from sitio import views
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register('noticias', views.NoticiaViewSet)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,4 +29,8 @@ urlpatterns = [
     path('ejemplo_forms/', views.ejemplo_forms),
     path('ejemplo_forms_django/', views.ejemplo_forms_django),
     path('ejemplo_forms_django_mas_copado/', views.ejemplo_forms_django_mas_copado),
+    path('ejemplo_ajax/', views.ejemplo_ajax),
+    path('api/ultimo_titulo/', views.api_ultimo_titulo),
+    path('api/lista_noticias/', views.api_lista_noticias),
+    path('api/', include(router.urls)),
 ]

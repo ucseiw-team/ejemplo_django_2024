@@ -1,4 +1,9 @@
 from django.shortcuts import render, redirect
+from django.http import JsonResponse
+
+from rest_framework import viewsets
+from sitio.serializers import NoticiaSerializer
+
 from sitio.models import Noticia
 from sitio.forms import FormNoticia, FormNoticiaMasCopado
 from datetime import datetime
@@ -60,4 +65,29 @@ def ejemplo_forms_django_mas_copado(request):
         form = FormNoticiaMasCopado()
 
     return render(request, "ejemplo_forms_django.html", {"form": form})
+
+
+def ejemplo_ajax(request):
+    return render(request, "ejemplo_ajax.html", {})
+
+
+def api_ultimo_titulo(request):
+    ultima_noticia = Noticia.objects.all().order_by("-fecha").first()
+    data = {
+        "titulo_ultima_noticia": ultima_noticia.titulo,
+    }
+    return JsonResponse(data)
+
+
+def api_lista_noticias(request):
+    lista_noticias = Noticia.objects.all().order_by("-fecha")[0:3]
+    return render(request, "api_lista_noticias.html", {"lista_noticias": lista_noticias})
+
+
+class NoticiaViewSet(viewsets.ModelViewSet):
+    """
+    API de noticias.
+    """
+    queryset = Noticia.objects.all().order_by('-fecha')
+    serializer_class = NoticiaSerializer
 

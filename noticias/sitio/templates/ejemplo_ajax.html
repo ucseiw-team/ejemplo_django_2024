@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block subtitulo %}Ejemplo AJAX{% endblock %}
+
+{% block contenido %}
+    <p id="ultima_noticia">?</p>
+    <p>
+        <button id="boton_actualizar_noticia">Actualizar</button>
+    </p>
+
+    <h2>Top últimas noticias</h2>
+    <div id="lista_noticias">...</div>
+    <p >
+        <button id="boton_actualizar_lista"
+                hx-get="/api/lista_noticias/" 
+                hx-target="#lista_noticias"
+                hx-swap="innerHTML"
+                >
+            Actualizar lista
+        </button>
+    </p>
+
+    <script src="{% static 'sitio/js/ejemplo_ajax.js' %}"></script>
+{% endblock %}
+
